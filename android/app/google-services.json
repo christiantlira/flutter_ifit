@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042160734236",
+    "project_id": "appfhit",
+    "storage_bucket": "appfhit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042160734236:android:e371b0fdcd7f29b3b58fd9",
+        "android_client_info": {
+          "package_name": "com.example.flutter_ifit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZba0rLX1n1X_5XsuUmCFJhUh9MCqhlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
