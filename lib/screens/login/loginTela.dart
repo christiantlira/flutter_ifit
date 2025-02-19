@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iFit/components/colors/app_colors.dart';
 import 'package:iFit/components/visual/logo_icon.dart';

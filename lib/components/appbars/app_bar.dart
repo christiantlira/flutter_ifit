@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iFit/components/colors/app_colors.dart';
 import 'package:iFit/components/visual/logo_text.dart';
 
 import '../visual/logo_icon.dart';

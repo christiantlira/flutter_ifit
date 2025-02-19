@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iFit/components/colors/app_colors.dart';
-import 'package:iFit/services/auth_service.dart';
 
 class MySignInButton extends StatelessWidget {
   final Function() onTap;

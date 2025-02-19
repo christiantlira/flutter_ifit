@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iFit/components/appbars/bottom_app_bar.dart';
 import 'package:iFit/components/colors/app_colors.dart';
-import 'package:iFit/services/auth_service.dart';
 import 'package:iFit/components/appbars/app_bar.dart';
 
 class HomeTela extends StatelessWidget {

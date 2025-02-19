@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:iFit/components/colors/app_colors.dart';
 import 'package:iFit/components/visual/logo_icon.dart';

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AppLists {
   static const List<List<MapEntry<String, String>>> exs = [
     [

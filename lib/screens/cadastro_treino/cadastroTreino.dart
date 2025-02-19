@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iFit/classes/exercicio.dart';
 import 'package:iFit/components/appbars/app_bar.dart';
-import 'package:iFit/components/appbars/bottom_app_bar.dart';
 import 'package:iFit/components/appbars/bottom_treino.dart';
 import 'package:iFit/components/colors/app_colors.dart';
 import 'package:iFit/components/square_treino.dart';

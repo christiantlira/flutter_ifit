@@ -4,14 +4,12 @@ import 'package:iFit/components/colors/app_colors.dart';
 
 class ExercicioTile extends StatelessWidget {
   final Exercicio exercicio;
-  final int valorAtual;
-  final Function(String, int) onValorMudou;
+  final Widget slider;
 
   const ExercicioTile({
     super.key,
     required this.exercicio,
-    required this.valorAtual,
-    required this.onValorMudou,
+    required this.slider,
   });
 
   @override
@@ -55,19 +53,7 @@ class ExercicioTile extends StatelessWidget {
                   child: Column(
                     children: [
                       Text('Quantidade de séries'),
-                      Slider(
-                        label: valorAtual.toString(),
-                        min: 1,
-                        max: 10,
-                        divisions: 9,
-                        value: valorAtual.toDouble(),
-                        thumbColor: AppColors.primaryRed,
-                        activeColor: AppColors.primaryRed,
-                        inactiveColor: AppColors.lightGray,
-                        onChanged: (double value) {
-                          onValorMudou(exercicio.nome, value.round());
-                        },
-                      )
+                      slider,
                     ],
                   ),
                 )

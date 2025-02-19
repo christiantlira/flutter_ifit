@@ -38,10 +38,10 @@ class MyTextField extends StatelessWidget {
         if (value!.length < 4) {
           return "Deve ter pelo menos 4 caracteres";
         }
-        if (value!.isEmpty) {
+        if (value.isEmpty) {
           return "Campo não pode estar vazio";
         }
-        if (isEmail! && !value!.contains("@")) {
+        if (isEmail! && !value.contains("@")) {
           return "Digite um email válido";
         }
 
@@ -49,6 +49,14 @@ class MyTextField extends StatelessWidget {
       },
       onChanged: onChanged,
       decoration: InputDecoration(
+        label: label == null
+            ? null
+            : Text(
+                label!,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
         hintText: hintText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
