@@ -63,6 +63,7 @@ class _FinalizarCadastroTreinoState extends State<FinalizarCadastroTreino> {
 
       await treinoRef.set({
         "nome": treinoNome,
+        "imgPath": exercicios.first.imgPath,
       });
 
       // Adiciona os exercícios individualmente

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/finalizarCadastroTreino': (context) => const FinalizarCadastroTreino()
       },
       debugShowCheckedModeBanner: false,
-      home: const HomeTela(),
+      home: const LoginTela(),
     );
   }
 }

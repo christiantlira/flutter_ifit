@@ -15,7 +15,7 @@ class MySlider extends StatelessWidget {
       min: 1,
       max: 10,
       divisions: 9,
-      value: exercicio.series.toDouble(),
+      value: exercicio.series!.toDouble(),
       thumbColor: AppColors.primaryRed,
       activeColor: AppColors.primaryRed,
       inactiveColor: AppColors.lightGray,
