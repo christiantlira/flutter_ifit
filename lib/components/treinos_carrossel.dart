@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:iFit/classes/exercicio.dart';
 import 'package:iFit/components/colors/app_colors.dart';
@@ -10,48 +12,43 @@ class MyTreinoCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return treinos.isEmpty
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.add,
-                size: 80,
-                color: AppColors.lightGray,
-              ),
-              Text(
-                "Adicione seus treinos",
-                style: TextStyle(
-                  color: AppColors.lightGray,
-                  fontWeight: FontWeight.bold,
+    return PageView(
+      scrollDirection: Axis.vertical,
+      children: [
+        for (Treino treino in treinos)
+          GestureDetector(
+            onTap: () {
+              Navigator.popAndPushNamed(
+                context,
+                '/treino',
+                arguments: treino,
+              );
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 400,
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    treino.imgPath!,
+                    fit: BoxFit.fill,
+                  ),
                 ),
-              )
-            ],
-          )
-        : CarouselView.weighted(
-            flexWeights: [1, 7, 1],
-            children: [
-              for (Treino treino in treinos)
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        treino.exercicios![0].imgPath,
-                        fit: BoxFit.fill,
-                      ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    treino.nome,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        treino.nome,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-            ],
-          );
+                  ),
+                )
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }

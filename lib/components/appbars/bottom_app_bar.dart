@@ -94,6 +94,9 @@ class MyBottomAppBar extends StatelessWidget {
                   children: [
                     FittedBox(
                       child: GestureDetector(
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, 'home');
+                        },
                         child: Icon(
                           shadows: [
                             Shadow(

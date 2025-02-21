@@ -16,6 +16,7 @@ class TreinoController extends GetxController {
           nome: musculo[index].key,
           imgPath: musculo[index].value,
           isSelected: false.obs,
+          series: 3,
         )),
       );
       list.add(listExercicio);

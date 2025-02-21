@@ -5,6 +5,7 @@ import 'package:iFit/screens/cadastro_treino/cadastroTreino.dart';
 import 'package:iFit/screens/cadastro_treino/finalizarTreino.dart';
 import 'package:iFit/screens/home.dart';
 import 'package:iFit/screens/login/loginTela.dart';
+import 'package:iFit/screens/treino/treino_tela.dart';
 import 'screens/registro/registroTela.dart';
 
 Future<void> main() async {
@@ -27,7 +28,9 @@ class MyApp extends StatelessWidget {
         '/registro': (context) => const Registrotela(),
         '/home': (context) => const HomeTela(),
         '/cadastrarTreino': (context) => const CadastrarTreino(),
-        '/finalizarCadastroTreino': (context) => const FinalizarCadastroTreino()
+        '/finalizarCadastroTreino': (context) =>
+            const FinalizarCadastroTreino(),
+        '/treino': (context) => TreinoTela()
       },
       debugShowCheckedModeBanner: false,
       home: const LoginTela(),
