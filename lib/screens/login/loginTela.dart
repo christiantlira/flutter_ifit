@@ -61,8 +61,8 @@ class LoginTela extends StatelessWidget {
             MySignInButton(
               onTap: () {
                 AuthService().SignIn(
-                    email: emailController.text,
-                    password: senhaController.text,
+                    email: 'teste@gmail.com',
+                    password: 'b0l@sete',
                     context: context);
               },
             ),

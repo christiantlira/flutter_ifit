@@ -17,10 +17,34 @@ class TreinoTela extends StatefulWidget {
 class _TreinoTelaState extends State<TreinoTela> {
   late Treino treino;
   bool _isInitialized = false;
+  int _selectedImageIndex = -1;
 
-  void updateReps(int index, int newValue) {
+  void _onImageTap(int index) {
     setState(() {
-      treino.exercicios[index].reps = newValue;
+      _selectedImageIndex = index;
+    });
+  }
+
+  void updateReps(Exercicio exercicio, int index, int newValue) {
+    setState(() {
+      if (exercicio.serie == null) {
+        exercicio.onInitReps();
+        exercicio.repsController(index);
+      }
+      exercicio.serie?[index] = newValue;
+      exercicio.controllersReps?[index].text = newValue.toString();
+      print('toma esse gap ai ${exercicio.serie?[index]}');
+    });
+  }
+
+  void updateCarga(Exercicio exercicio, int index, int newValue) {
+    setState(() {
+      if (exercicio.carga == null) {
+        exercicio.onInitCargas();
+        exercicio.cargaController(index);
+      }
+      exercicio.carga?[index] = newValue;
+      exercicio.controllersCarga?[index].text = newValue.toString();
     });
   }
 
@@ -113,20 +137,151 @@ class _TreinoTelaState extends State<TreinoTela> {
                                             total: exercicio.series,
                                             index: i,
                                           ),
-                                          Slider(
-                                              label: exercicio.reps!.toString(),
-                                              value:
-                                                  exercicio.reps!.toDouble() ??
-                                                      5,
-                                              min: 1,
-                                              max: 30,
-                                              thumbColor: AppColors.primaryRed,
-                                              activeColor: AppColors.primaryRed,
-                                              inactiveColor:
-                                                  AppColors.lightGray,
-                                              onChanged: (newValue) =>
-                                                  updateReps(
-                                                      i, newValue.toInt()))
+                                          Divider(), // DIVISOR ----------------
+                                          Text(
+                                            'Repetições',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              //ADICIONAR TEXTFIELD PARA PERSONALIZAR QUANTIDADE DE REPETIÇÕES
+                                              SizedBox(
+                                                width: 50,
+                                                child: TextField(
+                                                  onSubmitted: (newValue) =>
+                                                      updateReps(
+                                                    exercicio,
+                                                    i,
+                                                    int.parse(newValue),
+                                                  ),
+                                                  controller: exercicio
+                                                              .controllersReps?[
+                                                          i] ??
+                                                      exercicio
+                                                          .repsController(i),
+                                                ),
+                                              ),
+                                              Slider(
+                                                  label: exercicio.serie?[i]
+                                                          .toString() ??
+                                                      exercicio
+                                                          .onInitReps()
+                                                          .toString(),
+                                                  value: exercicio.serie?[i]
+                                                          .toDouble() ??
+                                                      8,
+                                                  min: 1,
+                                                  max: double.parse(exercicio
+                                                              .controllersReps![
+                                                                  i]
+                                                              .text) >
+                                                          30
+                                                      ? double.parse(exercicio
+                                                          .controllersReps![i]
+                                                          .text)
+                                                      : 30,
+                                                  thumbColor:
+                                                      AppColors.primaryRed,
+                                                  activeColor:
+                                                      AppColors.primaryRed,
+                                                  inactiveColor:
+                                                      AppColors.darkGray,
+                                                  onChanged: (newValue) =>
+                                                      updateReps(
+                                                        exercicio,
+                                                        i,
+                                                        newValue.toInt(),
+                                                      )),
+                                            ],
+                                          ),
+                                          Divider(), // DIVISOR ----------------
+                                          Text(
+                                            'Carga',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.fitness_center),
+                                              SizedBox(width: 5),
+                                              SizedBox(
+                                                width: 50,
+                                                child: TextField(
+                                                  onSubmitted: (newValue) =>
+                                                      updateCarga(
+                                                    exercicio,
+                                                    i,
+                                                    int.parse(newValue),
+                                                  ),
+                                                  controller: exercicio
+                                                              .controllersCarga?[
+                                                          i] ??
+                                                      exercicio
+                                                          .cargaController(i),
+                                                ),
+                                              ),
+                                            ],
+                                          ), //
+                                          Divider(),
+                                          Text(
+                                            'Dificuldade',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: List.generate(5, (index) {
+                                              return GestureDetector(
+                                                onTap: () => _onImageTap(index),
+                                                child: Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 2.0),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color:
+                                                          _selectedImageIndex ==
+                                                                  index
+                                                              ? Colors.blue
+                                                              : Colors
+                                                                  .transparent,
+                                                      width: 0.2,
+                                                    ),
+                                                  ),
+                                                  child: Icon(
+                                                    index == 0
+                                                        ? Icons
+                                                            .sentiment_very_satisfied
+                                                        : index == 1
+                                                            ? Icons
+                                                                .sentiment_satisfied
+                                                            : index == 2
+                                                                ? Icons
+                                                                    .sentiment_neutral
+                                                                : index == 3
+                                                                    ? Icons
+                                                                        .sentiment_dissatisfied
+                                                                    : Icons
+                                                                        .sentiment_very_dissatisfied,
+                                                    color:
+                                                        _selectedImageIndex ==
+                                                                index
+                                                            ? Colors.blue
+                                                            : Colors.white,
+                                                    size: 50,
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          ),
+                                          Divider()
                                         ],
                                       ),
                                     ),

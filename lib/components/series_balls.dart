@@ -21,7 +21,7 @@ class SeriesBalls extends StatelessWidget {
               //BOLA C COR BROCHA
               Icon(
                 Icons.circle,
-                color: Colors.red[200],
+                color: AppColors.primaryRed,
                 size: 10,
               )
             else if (i == index)
@@ -29,7 +29,7 @@ class SeriesBalls extends StatelessWidget {
               Icon(
                 Icons.circle,
                 color: AppColors.primaryRed,
-                size: 10,
+                size: 20,
               )
             else
               //BOLA CINZA
