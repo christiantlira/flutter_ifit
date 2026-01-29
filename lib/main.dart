@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iFit/firebase_options.dart';
-import 'package:iFit/screens/cadastro_treino/cadastroTreino.dart';
-import 'package:iFit/screens/cadastro_treino/finalizarTreino.dart';
-import 'package:iFit/screens/home.dart';
-import 'package:iFit/screens/login/loginTela.dart';
-import 'package:iFit/screens/treino/treino_tela.dart';
-import 'screens/registro/registroTela.dart';
+import 'package:iFit/presentation/screens/treino/finalizarTreino.dart';
+import 'package:iFit/presentation/screens/treino/cadastroTreino.dart';
+import 'package:iFit/presentation/screens/home.dart';
+import 'package:iFit/presentation/screens/auth/loginTela.dart';
+import 'package:iFit/presentation/screens/treino/treino_tela.dart';
+import 'presentation/screens/auth/registroTela.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,9 +27,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginTela(),
         '/registro': (context) => const Registrotela(),
         '/home': (context) => const HomeTela(),
-        '/cadastrarTreino': (context) => const CadastrarTreino(),
-        '/finalizarCadastroTreino': (context) =>
-            const FinalizarCadastroTreino(),
+        '/cadastrarTreino': (context) => const FinalizarTreino(),
+        '/finalizarCadastroTreino': (context) => const CadastroTreino(),
         '/treino': (context) => TreinoTela()
       },
       debugShowCheckedModeBanner: false,
