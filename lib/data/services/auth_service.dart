@@ -17,9 +17,9 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {
-        message = 'A senha é muito fraca.';
+        message = 'Password is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        message = 'Já existe uma conta com esse email.';
+        message = 'An account already exists with this email.';
       }
       Fluttertoast.showToast(
           msg: message,
@@ -78,9 +78,9 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'user-not-found') {
-        message = 'Nenhum usuário encontrado com esse email';
+        message = 'No user found with this email';
       } else if (e.code == 'wrong-password') {
-        message = 'A senha está errada';
+        message = 'Wrong password';
       }
       Fluttertoast.showToast(
           msg: message,

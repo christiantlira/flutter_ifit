@@ -33,7 +33,7 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "lib/imgs/icons/app_icon.png" # Caminho para o ícone
+  image_path: "assets/images/icons/app_icon.png" # Caminho para o ícone
   adaptive_icon_background: "#FFFFFF" # Cor de fundo para Android
 
 flutter:
@@ -42,12 +42,14 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - lib/imgs/
-     - lib/imgs/exs/
-     - lib/imgs/icons/
+     - assets/images/
+     - assets/images/exs/
+     - assets/images/exs/chest/
+     - assets/images/exs/back/
+     - assets/images/icons/
   #   - images/a_dot_ham.jpeg
 
   fonts:
     - family: Avatar
       fonts:
-        - asset: lib/fonts/VAL.otf
+        - asset: assets/fonts/VAL.otf

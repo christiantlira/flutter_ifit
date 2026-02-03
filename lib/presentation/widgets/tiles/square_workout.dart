@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iFit/data/models/exercicio.dart';
+import 'package:iFit/data/models/exercise.dart';
 import 'package:iFit/core/constants/app_colors.dart';
 
-class SquareTreino extends StatelessWidget {
+class SquareWorkout extends StatelessWidget {
   final Function()? onPressed;
   final RxBool isSelected;
-  final Exercicio exercicio;
+  final Exercise exercise;
 
-  const SquareTreino({
+  const SquareWorkout({
     super.key,
-    required this.exercicio,
+    required this.exercise,
     required this.onPressed,
     required this.isSelected,
   });
@@ -33,7 +33,7 @@ class SquareTreino extends StatelessWidget {
             children: [
               // Imagem à esquerda
               Image.asset(
-                exercicio.imgPath,
+                exercise.imgPath,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width * 0.48,
                 height: MediaQuery.of(context).size.height,
@@ -42,7 +42,7 @@ class SquareTreino extends StatelessWidget {
               // Texto à direita
               Flexible(
                 child: Text(
-                  '${exercicio.nome}',
+                  '${exercise.name}',
                   style: TextStyle(
                     color: isSelected.value ? Colors.white : Colors.black,
                     fontSize: 16,

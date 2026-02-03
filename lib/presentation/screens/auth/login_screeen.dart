@@ -101,7 +101,7 @@ class LoginTela extends StatelessWidget {
               children: [
                 //google button
                 SquareTile(
-                  imgPath: "lib/imgs/google.png",
+                  imgPath: "assets/images/google.png",
                   onPressed: () {
                     AuthService().SignInWithGoogle(context: context);
                   },
@@ -109,7 +109,7 @@ class LoginTela extends StatelessWidget {
                 SizedBox(width: 25),
                 //face button
                 SquareTile(
-                  imgPath: "lib/imgs/face.png",
+                  imgPath: "assets/images/face.png",
                   onPressed: () {},
                 ),
               ],

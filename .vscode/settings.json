@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "Exercicios"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.gradle.initScript.disabled": true,
+    "java.gradle.buildServer.enabled": false
 }

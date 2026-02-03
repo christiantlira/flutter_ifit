@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iFit/core/constants/app_colors.dart';
 
-class SeriesBalls extends StatelessWidget {
+class SetsBalls extends StatelessWidget {
   final int total;
   final int index;
-  const SeriesBalls({super.key, required this.total, required this.index});
+  const SetsBalls({super.key, required this.total, required this.index});
 
   @override
   Widget build(BuildContext context) {

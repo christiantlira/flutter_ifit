@@ -1,27 +1,23 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:iFit/data/models/exercicio.dart';
-import 'package:iFit/core/constants/app_colors.dart';
-import 'package:iFit/data/models/treino.dart';
+import 'package:iFit/data/models/train.dart';
 
-class MyTreinoCarousel extends StatelessWidget {
-  final List<Treino> treinos;
+class MyWorkoutCarousel extends StatelessWidget {
+  final List<Workout> workouts;
 
-  const MyTreinoCarousel({super.key, required this.treinos});
+  const MyWorkoutCarousel({super.key, required this.workouts});
 
   @override
   Widget build(BuildContext context) {
     return PageView(
       scrollDirection: Axis.vertical,
       children: [
-        for (Treino treino in treinos)
+        for (Workout workout in workouts)
           GestureDetector(
             onTap: () {
               Navigator.popAndPushNamed(
                 context,
-                '/treino',
-                arguments: treino,
+                '/workout',
+                arguments: workout,
               );
             },
             child: Column(
@@ -31,14 +27,14 @@ class MyTreinoCarousel extends StatelessWidget {
                   height: 400,
                   alignment: Alignment.center,
                   child: Image.asset(
-                    treino.imgPath!,
+                    workout.imgPath!,
                     fit: BoxFit.fill,
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    treino.nome,
+                    workout.name,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iFit/data/models/exercicio.dart';
+import 'package:iFit/data/models/exercise.dart';
 import 'package:iFit/presentation/widgets/app_bars/app_bar.dart';
-import 'package:iFit/presentation/widgets/buttons/bottom_treino.dart';
+import 'package:iFit/presentation/widgets/buttons/bottom_workout.dart';
 import 'package:iFit/core/constants/app_colors.dart';
-import 'package:iFit/presentation/widgets/tiles/square_treino.dart';
-import 'package:iFit/presentation/controllers/treino_controller.dart';
+import 'package:iFit/presentation/widgets/tiles/square_workout.dart';
+import 'package:iFit/presentation/controllers/workout_controller.dart';
 import 'package:iFit/core/constants/exercise_data.dart';
 
-class FinalizarTreino extends GetView<TreinoController> {
-  const FinalizarTreino({super.key});
+class FinishWorkout extends GetView<WorkoutController> {
+  const FinishWorkout({super.key});
 
   @override
   Widget build(BuildContext context) {
     // INICIANDO CONTROLLER
-    TreinoController treinoController = TreinoController();
-    treinoController.onInit();
+    WorkoutController workoutController = WorkoutController();
+    workoutController.onInit();
 
-    RxList<Exercicio> selecteds = <Exercicio>[].obs; // Lista observável
+    RxList<Exercise> selecteds = <Exercise>[].obs; // Lista observável
 
     return SafeArea(
       child: Scaffold(
@@ -58,22 +58,22 @@ class FinalizarTreino extends GetView<TreinoController> {
                           ),
                           itemCount: 6,
                           itemBuilder: (context, index) {
-                            return SquareTreino(
+                            return SquareWorkout(
                               onPressed: () {
-                                var exercicio =
-                                    treinoController.list[pageIndex][index];
-                                exercicio.isSelected!.value =
-                                    !exercicio.isSelected!.value;
+                                var exercise =
+                                    workoutController.list[pageIndex][index];
+                                exercise.isSelected!.value =
+                                    !exercise.isSelected!.value;
 
-                                if (exercicio.isSelected!.value) {
-                                  selecteds.add(exercicio);
+                                if (exercise.isSelected!.value) {
+                                  selecteds.add(exercise);
                                 } else {
-                                  selecteds.remove(exercicio);
+                                  selecteds.remove(exercise);
                                 }
                               },
-                              isSelected: treinoController
+                              isSelected: workoutController
                                   .list[pageIndex][index].isSelected!,
-                              exercicio: treinoController.list[pageIndex]
+                              exercise: workoutController.list[pageIndex]
                                   [index],
                             );
                           },
@@ -94,10 +94,10 @@ class FinalizarTreino extends GetView<TreinoController> {
                     ? GestureDetector(
                         onTap: () {
                           Navigator.popAndPushNamed(
-                              context, '/finalizarCadastroTreino',
+                              context, '/finishWorkoutRegistration',
                               arguments: selecteds);
                         },
-                        child: MyBottonButton(selecteds: selecteds))
+                        child: MyBottomButton(selecteds: selecteds))
                     : SizedBox(),
               ),
             ),

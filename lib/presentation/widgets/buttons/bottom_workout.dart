@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iFit/data/models/exercicio.dart';
+import 'package:iFit/data/models/exercise.dart';
 import 'package:iFit/core/constants/app_colors.dart';
 
-class MyBottonButton extends StatelessWidget {
-  final RxList<Exercicio> selecteds;
-  const MyBottonButton({super.key, required this.selecteds});
+class MyBottomButton extends StatelessWidget {
+  final RxList<Exercise> selecteds;
+  const MyBottomButton({super.key, required this.selecteds});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class MyBottonButton extends StatelessWidget {
             children: [
               Text(
                 selecteds.length > 1
-                    ? '${selecteds.length} exercícios selecionados'
-                    : '${selecteds.length} exercício selecionado',
+                    ? '${selecteds.length} exercises selected'
+                    : '${selecteds.length} exercise selected',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
@@ -39,7 +39,7 @@ class MyBottonButton extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   height: 60,
                   child: Text(
-                    'Finalizar Treino',
+                    'Finish Workout',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

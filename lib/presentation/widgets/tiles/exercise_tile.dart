@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:iFit/data/models/exercicio.dart';
+import 'package:iFit/data/models/exercise.dart';
 import 'package:iFit/core/constants/app_colors.dart';
 
-class ExercicioTileCadastroTreino extends StatelessWidget {
-  final Exercicio exercicio;
+class ExerciseTileWorkoutRegistration extends StatelessWidget {
+  final Exercise exercise;
   final Widget textfield;
 
-  const ExercicioTileCadastroTreino({
+  const ExerciseTileWorkoutRegistration({
     super.key,
-    required this.exercicio,
+    required this.exercise,
     required this.textfield,
   });
 
@@ -27,13 +27,13 @@ class ExercicioTileCadastroTreino extends StatelessWidget {
               children: [
                 SizedBox(width: 5),
                 Image.asset(
-                  exercicio.imgPath,
+                  exercise.imgPath,
                   fit: BoxFit.fitWidth,
                   height: 80,
                 ),
                 SizedBox(width: 5),
                 Text(
-                  exercicio.nome,
+                  exercise.name,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -52,7 +52,7 @@ class ExercicioTileCadastroTreino extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     children: [
-                      Text('Quantidade de séries'),
+                      Text('Number of sets'),
                       textfield,
                     ],
                   ),

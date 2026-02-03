@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:iFit/data/models/exercicio.dart';
-import 'package:iFit/data/models/treino.dart';
+import 'package:iFit/data/models/exercise.dart';
+import 'package:iFit/data/models/train.dart';
 import 'package:iFit/presentation/widgets/app_bars/app_bar.dart';
 import 'package:iFit/presentation/widgets/app_bars/bottom_app_bar.dart';
 import 'package:iFit/core/constants/app_colors.dart';
-import 'package:iFit/presentation/widgets/common/series_balls.dart';
-import 'package:iFit/presentation/widgets/forms/text_field_cadastro_treino.dart';
+import 'package:iFit/presentation/widgets/common/sets_balls.dart';
 
-class TreinoTela extends StatefulWidget {
-  TreinoTela({super.key});
+// Página de treino: Onde o usuário realiza o treino selecionado
+class WorkoutScreen extends StatefulWidget {
+  WorkoutScreen({super.key});
 
   @override
-  State<TreinoTela> createState() => _TreinoTelaState();
+  State<WorkoutScreen> createState() => _WorkoutScreenState();
 }
 
-class _TreinoTelaState extends State<TreinoTela> {
-  late Treino treino;
+class _WorkoutScreenState extends State<WorkoutScreen> {
+  late Workout workout;
   bool _isInitialized = false;
   int _selectedImageIndex = -1;
 
@@ -25,33 +25,32 @@ class _TreinoTelaState extends State<TreinoTela> {
     });
   }
 
-  void updateReps(Exercicio exercicio, int index, int newValue) {
+  void updateReps(Exercise exercise, int index, int newValue) {
     setState(() {
-      if (exercicio.serie == null) {
-        exercicio.onInitReps();
-        exercicio.repsController(index);
+      if (exercise.repsPerSet == null) {
+        exercise.onInitReps();
+        exercise.repsController(index);
       }
-      exercicio.serie?[index] = newValue;
-      exercicio.controllersReps?[index].text = newValue.toString();
-      print('toma esse gap ai ${exercicio.serie?[index]}');
+      exercise.repsPerSet?[index] = newValue;
+      exercise.repsControllers?[index].text = newValue.toString();
     });
   }
 
-  void updateCarga(Exercicio exercicio, int index, int newValue) {
+  void updateLoad(Exercise exercise, int index, int newValue) {
     setState(() {
-      if (exercicio.carga == null) {
-        exercicio.onInitCargas();
-        exercicio.cargaController(index);
+      if (exercise.load == null) {
+        exercise.onInitLoads();
+        exercise.loadController(index);
       }
-      exercicio.carga?[index] = newValue;
-      exercicio.controllersCarga?[index].text = newValue.toString();
+      exercise.load?[index] = newValue;
+      exercise.loadControllers?[index].text = newValue.toString();
     });
   }
 
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInitialized) {
-      treino = ModalRoute.of(context)!.settings.arguments as Treino;
+      workout = ModalRoute.of(context)!.settings.arguments as Workout;
       _isInitialized = true; // Marca como inicializado
     }
   }
@@ -72,7 +71,7 @@ class _TreinoTelaState extends State<TreinoTela> {
           child: Column(
             children: [
               Text(
-                treino.nome,
+                workout.name,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               SizedBox(
@@ -82,7 +81,7 @@ class _TreinoTelaState extends State<TreinoTela> {
                 child: PageView(
                   controller: PageController(viewportFraction: 0.95),
                   scrollDirection: Axis.vertical,
-                  children: treino.exercicios.map((exercicio) {
+                  children: workout.exercises.map((exercise) {
                     return Container(
                       color: AppColors.black,
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -97,12 +96,12 @@ class _TreinoTelaState extends State<TreinoTela> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    exercicio.imgPath,
+                                    exercise.imgPath,
                                     fit: BoxFit.fitWidth,
                                     height: 180,
                                   ),
                                   Text(
-                                    exercicio.nome,
+                                    exercise.name,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ],
@@ -118,7 +117,7 @@ class _TreinoTelaState extends State<TreinoTela> {
                                     PageController(viewportFraction: 0.95),
                                 scrollDirection: Axis.horizontal,
                                 children: List.generate(
-                                  exercicio.series,
+                                  exercise.sets,
                                   (i) => Container(
                                     color: AppColors.darkGray,
                                     padding: EdgeInsets.all(5),
@@ -133,13 +132,13 @@ class _TreinoTelaState extends State<TreinoTela> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          SeriesBalls(
-                                            total: exercicio.series,
+                                          SetsBalls(
+                                            total: exercise.sets,
                                             index: i,
                                           ),
                                           Divider(), // DIVISOR ----------------
                                           Text(
-                                            'Repetições',
+                                            'Repetitions',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),
@@ -153,34 +152,34 @@ class _TreinoTelaState extends State<TreinoTela> {
                                                 child: TextField(
                                                   onSubmitted: (newValue) =>
                                                       updateReps(
-                                                    exercicio,
+                                                    exercise,
                                                     i,
                                                     int.parse(newValue),
                                                   ),
-                                                  controller: exercicio
-                                                              .controllersReps?[
+                                                  controller: exercise
+                                                              .repsControllers?[
                                                           i] ??
-                                                      exercicio
+                                                      exercise
                                                           .repsController(i),
                                                 ),
                                               ),
                                               Slider(
-                                                  label: exercicio.serie?[i]
+                                                  label: exercise.repsPerSet?[i]
                                                           .toString() ??
-                                                      exercicio
+                                                      exercise
                                                           .onInitReps()
                                                           .toString(),
-                                                  value: exercicio.serie?[i]
+                                                  value: exercise.repsPerSet?[i]
                                                           .toDouble() ??
                                                       8,
                                                   min: 1,
-                                                  max: double.parse(exercicio
-                                                              .controllersReps![
+                                                  max: double.parse(exercise
+                                                              .repsControllers![
                                                                   i]
                                                               .text) >
                                                           30
-                                                      ? double.parse(exercicio
-                                                          .controllersReps![i]
+                                                      ? double.parse(exercise
+                                                          .repsControllers![i]
                                                           .text)
                                                       : 30,
                                                   thumbColor:
@@ -191,7 +190,7 @@ class _TreinoTelaState extends State<TreinoTela> {
                                                       AppColors.darkGray,
                                                   onChanged: (newValue) =>
                                                       updateReps(
-                                                        exercicio,
+                                                        exercise,
                                                         i,
                                                         newValue.toInt(),
                                                       )),
@@ -199,7 +198,7 @@ class _TreinoTelaState extends State<TreinoTela> {
                                           ),
                                           Divider(), // DIVISOR ----------------
                                           Text(
-                                            'Carga',
+                                            'Load',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),
@@ -214,23 +213,23 @@ class _TreinoTelaState extends State<TreinoTela> {
                                                 width: 50,
                                                 child: TextField(
                                                   onSubmitted: (newValue) =>
-                                                      updateCarga(
-                                                    exercicio,
+                                                      updateLoad(
+                                                    exercise,
                                                     i,
                                                     int.parse(newValue),
                                                   ),
-                                                  controller: exercicio
-                                                              .controllersCarga?[
+                                                  controller: exercise
+                                                              .loadControllers?[
                                                           i] ??
-                                                      exercicio
-                                                          .cargaController(i),
+                                                      exercise
+                                                          .loadController(i),
                                                 ),
                                               ),
                                             ],
                                           ), //
                                           Divider(),
                                           Text(
-                                            'Dificuldade',
+                                            'Difficulty',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16),

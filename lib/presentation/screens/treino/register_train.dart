@@ -1,85 +1,85 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iFit/data/models/exercicio.dart';
+import 'package:iFit/data/models/exercise.dart';
 import 'package:iFit/presentation/widgets/app_bars/app_bar.dart';
 import 'package:iFit/core/constants/app_colors.dart';
-import 'package:iFit/presentation/widgets/tiles/exercicio_tile.dart';
-import 'package:iFit/presentation/widgets/forms/text_field_cadastro_treino.dart';
+import 'package:iFit/presentation/widgets/tiles/exercise_tile.dart';
+import 'package:iFit/presentation/widgets/forms/workout_registration_text_field.dart';
 import 'package:iFit/presentation/widgets/forms/text_field.dart';
 
-class CadastroTreino extends StatefulWidget {
-  const CadastroTreino({super.key});
+//Tela de cadastro de treino: Usuário registra os exercicios de cada treino.
+class RegisterWorkout extends StatefulWidget {
+  const RegisterWorkout({super.key});
 
   @override
-  State<CadastroTreino> createState() => _CadastroTreinoState();
+  State<RegisterWorkout> createState() => _RegisterWorkoutState();
 }
 
-class _CadastroTreinoState extends State<CadastroTreino> {
-  late List<Exercicio> exercicios;
+class _RegisterWorkoutState extends State<RegisterWorkout> {
+  late List<Exercise> exercises;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   bool _isInitialized = false; // Flag para evitar múltiplas inicializações
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInitialized) {
-      exercicios =
-          ModalRoute.of(context)!.settings.arguments as List<Exercicio>;
+      exercises = ModalRoute.of(context)!.settings.arguments as List<Exercise>;
       _isInitialized = true; // Marca como inicializado
     }
   }
 
   void reorderList(int oldIndex, int newIndex) {
     setState(() {
-      final Exercicio movedItem = exercicios.removeAt(oldIndex);
-      exercicios.insert(
+      final Exercise movedItem = exercises.removeAt(oldIndex);
+      exercises.insert(
           newIndex > oldIndex ? newIndex - 1 : newIndex, movedItem);
     });
   }
 
-  void updateSeries(int index, int newValue) {
+  void updateSets(int index, int newValue) {
     setState(() {
-      exercicios[index].series = newValue;
+      exercises[index].sets = newValue;
     });
   }
 
-  void cadastrarTreino() async {
+  void registerWorkout() async {
     final user = FirebaseAuth.instance.currentUser; // Obtém usuário logado
     if (user == null) return; // Se não estiver logado, não faz nada
 
-    String treinoNome =
-        nomeController.text; // Você pode pegar isso do TextField
+    String workoutName =
+        nameController.text; // Você pode pegar isso do TextField
 
     try {
       // Cria o documento do treino
-      DocumentReference treinoRef = FirebaseFirestore.instance
+      DocumentReference workoutRef = FirebaseFirestore.instance
           .collection("users")
           .doc(user.uid)
-          .collection("treinos")
-          .doc(treinoNome);
+          .collection("workouts")
+          .doc(workoutName);
 
-      await treinoRef.set({
-        "nome": treinoNome,
-        "imgPath": exercicios.first.imgPath,
+      await workoutRef.set({
+        "name": workoutName,
+        "imgPath": exercises.first.imgPath,
       });
 
       // Adiciona os exercícios individualmente
-      for (var exercicio in exercicios) {
-        await treinoRef.collection("exercicios").add({
-          "nome": exercicio.nome,
-          "series": exercicio.series,
-          "imgPath": exercicio.imgPath,
+      for (var exercise in exercises) {
+        await workoutRef.collection("exercises").add({
+          "name": exercise.name,
+          "sets": exercise.sets,
+          "imgPath": exercise.imgPath,
         });
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Treino cadastrado com sucesso!")),
+        SnackBar(content: Text("Workout registered successfully!")),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Erro ao cadastrar treino: $e")),
+        SnackBar(content: Text("Error registering workout: $e")),
       );
     }
     Navigator.popAndPushNamed(context, '/home');
@@ -99,15 +99,15 @@ class _CadastroTreinoState extends State<CadastroTreino> {
               Padding(
                 padding: EdgeInsets.all(16),
                 child: MyTextField(
-                  controller: nomeController,
-                  label: 'Nome do Treino',
-                  hintText: "'Treino A' ou 'Treino de Peito'",
+                  controller: nameController,
+                  label: 'Workout Name',
+                  hintText: "'Workout A' or 'Chest Workout'",
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Segure e arraste para trocar a ordem',
+                  'Hold and drag to reorder',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -116,18 +116,18 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ReorderableListView.builder(
-                    itemCount: exercicios.length,
+                    itemCount: exercises.length,
                     onReorder: reorderList,
                     itemBuilder: (context, index) {
                       return Padding(
-                        key: ValueKey(exercicios[index]),
+                        key: ValueKey(exercises[index]),
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: ExercicioTileCadastroTreino(
-                          exercicio: exercicios[index],
-                          textfield: TextfieldCadastroTreino(
-                            exercicio: exercicios[index],
+                        child: ExerciseTileWorkoutRegistration(
+                          exercise: exercises[index],
+                          textfield: WorkoutRegistrationTextField(
+                            exercise: exercises[index],
                             onChanged: (newValue) =>
-                                updateSeries(index, newValue),
+                                updateSets(index, newValue),
                           ),
                         ),
                       );
@@ -138,7 +138,7 @@ class _CadastroTreinoState extends State<CadastroTreino> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GestureDetector(
-                  onTap: cadastrarTreino,
+                  onTap: registerWorkout,
                   child: Container(
                     height: 50,
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -147,7 +147,7 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                         borderRadius: BorderRadius.circular(100)),
                     alignment: Alignment.center,
                     child: Text(
-                      'Cadastrar Treino',
+                      'Register Workout',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
