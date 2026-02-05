@@ -8,8 +8,8 @@ import 'package:iFit/data/services/auth_service.dart';
 
 import '../../widgets/forms/text_field.dart';
 
-class LoginTela extends StatelessWidget {
-  const LoginTela({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

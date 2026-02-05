@@ -15,12 +15,13 @@ class Exercise {
   int? reps = 10;
   RxBool? isSelected;
 
-  Exercise(
-      {required this.name,
-      required this.imgPath,
-      required this.sets, // Agora é requerido
-      this.isSelected,
-      this.repsPerSet});
+  Exercise({
+    required this.name,
+    required this.imgPath,
+    required this.sets,
+    this.isSelected,
+    this.repsPerSet,
+  });
 
   Object onInitReps() {
     repsPerSet = [];
@@ -68,23 +69,19 @@ class Exercise {
     return loadControllers![index];
   }
 
-  // Método para criar um exercício a partir de um documento do Firestore
+  // Factory melhorado para carregar do Firestore
   factory Exercise.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
-    Map<String, dynamic>? data =
-        doc.data(); // Pode ser null se o documento estiver vazio
+    Map<String, dynamic>? data = doc.data();
 
     if (data == null) {
-      throw Exception(
-          'Dados do exercício inválidos no Firestore.'); // Lança uma exceção para melhor tratamento de erro
+      throw Exception('Dados do exercício inválidos no Firestore.');
     }
 
     return Exercise(
-      name: data['name'] ??
-          '', // Usando ?? para valores padrão se não existir no Firestore.
-      imgPath: data['imgPath'] ??
-          '', // Usando ?? para valores padrão se não existir no Firestore.
-      sets: data['sets']?.toInt() ??
-          3, // Usando ?? para valor padrão 3 e convertendo para inteiro.
+      name: data['name'] ?? '',
+      // AQUI: Se tiver imgUrl no Firestore usa ela, senão usa a imagem mockada
+      imgPath: data['imgUrl'] ?? 'assets/images/exercise_placeholder.png',
+      sets: data['sets']?.toInt() ?? 3,
     );
   }
 
@@ -110,8 +107,17 @@ class Exercise {
   factory Exercise.fromMap(Map<String, dynamic> map) {
     return Exercise(
       name: map['name'] ?? '',
-      imgPath: map['imgPath'] ?? '',
+      imgPath: map['imgUrl'] ?? 'assets/images/exercise_placeholder.png',
       sets: map['sets']?.toInt() ?? 3,
     );
+  }
+
+  // Método para converter para Map (útil para salvar no Firestore)
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'imgUrl': imgPath,
+      'sets': sets,
+    };
   }
 }

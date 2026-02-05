@@ -4,7 +4,7 @@ import 'package:iFit/firebase_options.dart';
 import 'package:iFit/presentation/widgets/app_bars/workout_registration_app_bar.dart';
 import 'package:iFit/presentation/screens/treino/register_train.dart';
 import 'package:iFit/presentation/screens/home.dart';
-import 'package:iFit/presentation/screens/auth/login_screeen.dart';
+import 'package:iFit/presentation/screens/auth/login_screen.dart';
 import 'package:iFit/presentation/screens/treino/training_screen.dart';
 import 'presentation/screens/auth/register_screen.dart';
 
@@ -24,15 +24,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/login': (context) => const LoginTela(),
-        '/registro': (context) => const Registrotela(),
-        '/home': (context) => const HomeTela(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const HomeScreen(),
         '/registerWorkout': (context) => const FinishWorkout(),
         '/finishWorkoutRegistration': (context) => const RegisterWorkout(),
         '/workout': (context) => WorkoutScreen()
       },
       debugShowCheckedModeBanner: false,
-      home: const LoginTela(),
+      home: const LoginScreen(),
     );
   }
 }

@@ -6,8 +6,8 @@ import 'package:iFit/data/services/auth_service.dart';
 
 import '../../widgets/forms/text_field.dart';
 
-class Registrotela extends StatelessWidget {
-  const Registrotela({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

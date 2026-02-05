@@ -8,14 +8,14 @@ import 'package:iFit/core/constants/app_colors.dart';
 import 'package:iFit/presentation/widgets/app_bars/app_bar.dart';
 import 'package:iFit/presentation/carousels/workouts_carousel.dart';
 
-class HomeTela extends StatefulWidget {
-  const HomeTela({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomeTela> createState() => _HomeTelaState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeTelaState extends State<HomeTela> {
+class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Workout>> futureWorkouts;
 
   @override
