@@ -1,38 +1,55 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iFit/firebase_options.dart';
-import 'package:iFit/presentation/widgets/app_bars/workout_registration_app_bar.dart';
-import 'package:iFit/presentation/screens/treino/register_train.dart';
-import 'package:iFit/presentation/screens/home.dart';
-import 'package:iFit/presentation/screens/auth/login_screen.dart';
-import 'package:iFit/presentation/screens/treino/training_screen.dart';
-import 'presentation/screens/auth/register_screen.dart';
+import 'package:iFit/core/router/app_router.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Inicializar Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(const MyApp());
+  runApp(
+    // ProviderScope: permite que todo o app use Riverpod
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/registerWorkout': (context) => const FinishWorkout(),
-        '/finishWorkoutRegistration': (context) => const RegisterWorkout(),
-        '/workout': (context) => WorkoutScreen()
-      },
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Observa o router provider
+    final router = ref.watch(routerProvider as ProviderListenable<dynamic>);
+
+    return MaterialApp.router(
+      title: 'iFit',
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      
+      // Configuração do tema (ajuste conforme seu design)
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
+      
+      // Configuração do go_router
+      routerConfig: router,
     );
   }
+}
+
+// Placeholder classes (remova depois de ajustar os imports)
+class DefaultFirebaseOptions {
+  static get currentPlatform => null;
+}
+
+class routerProvider {
+  static watch(watch) {}
 }
